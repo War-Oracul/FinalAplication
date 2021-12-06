@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_Add">Add</string>
+    <string name="button_Language">Language</string>
+    <string name="button_Activity">Activity</string>
+    <string name="m_execute">Execute</string>
+    <string name="m_exit">Exit</string>
+    <string name="button_Remove">Remove</string>
+    <string name="title_activity_back">BackActivity</string>
+    <string name="title_activity_login">Authorisation</string>
+    <string name="title_activity_main">List</string>
+    <string name="loginPlace">Login</string>
+    <string name="passwordPlace">Password</string>
+    <string name="button_Enter">Enter</string>
+    <string name="button_Create">Create</string>
+</resources>

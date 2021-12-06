@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_Add">Добавить</string>
+    <string name="button_Language">Язык</string>
+    <string name="button_Activity">Активити</string>
+    <string name="m_execute">Выполнить</string>
+    <string name="m_exit">Выйти</string>
+    <string name="title_activity_login">Авторизация</string>
+    <string name="title_activity_main">Список</string>
+    <string name="button_Remove">Удалить</string>
+    <string name="title_activity_back">Активити</string>
+    <string name="loginPlace">Логин</string>
+    <string name="passwordPlace">Пароль</string>
+    <string name="button_Enter">Войти</string>
+    <string name="button_Create">Создать</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item1"
+        android:title="@string/user" />
+    <item
+        android:id="@+id/item2"
+        android:title="@string/button_Add" />
+    <item
+        android:id="@+id/item3"
+        android:title="@string/button_Remove" />
+    <item
+        android:id="@+id/item4"
+        android:title="@string/button_Language" />
+    <item
+        android:id="@+id/item5"
+        android:title="@string/m_exit" />
+    <item
+        android:id="@+id/item6"
+        android:title="@string/m_execute" />
+</menu>
