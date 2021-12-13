@@ -40,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText editlogin;
     EditText editpassword;
     TextView textView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +147,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         isShowAlert = true;
+
+        Bundle arguments = getIntent().getExtras();
+        if (arguments!= null){
+            String sms = arguments.get("sms").toString();
+            textView.setText(sms);
+        }
+
     }
     @Override
     protected void onPause(){
@@ -180,6 +189,6 @@ public class LoginActivity extends AppCompatActivity {
             permission_list[0] = permission;
             ActivityCompat.requestPermissions(this, permission_list, 1);
         }
-    }
+        }
 
 }

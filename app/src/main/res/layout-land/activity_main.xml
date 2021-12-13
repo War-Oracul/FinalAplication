@@ -31,9 +31,16 @@
             android:layout_weight="0"
             android:text="@string/button_Language" />
 
+        <TextView
+            android:id="@+id/lightView2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0"
+            android:textSize="16sp" />
+
         <Space
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="20dp"
             android:layout_weight="0" />
 
         <Button

@@ -11,12 +11,15 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import java.util.ArrayList;
 
 public class MessageReceiver extends BroadcastReceiver {
     private NotificationUtils mNotificationUtils;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
         mNotificationUtils = new NotificationUtils(context);
@@ -29,10 +32,11 @@ public class MessageReceiver extends BroadcastReceiver {
             for (int i=0; i<msgs.length; i++){ //пробегаемся по всем полученным сообщениям
                 msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
                 String number = msgs[i].getOriginatingAddress(); //получаем номер отправителя
+                String sms = msgs[i].getMessageBody().toString();
                 if (number.equals("+79374465059") && (LoginActivity.isShowAlert == false)) {
                     String mes = "SMS сообщение с номера <"+ number+">";
                     Notification.Builder nb = mNotificationUtils.
-                            getChannelNotification(context, "Уведомление от приложения",mes);
+                            getChannelNotification(context, "Уведомление от приложения",mes, sms);
 
                     mNotificationUtils.getManager().notify(101, nb.build());
                 }

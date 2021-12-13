@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -11,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 public class BackActivity extends AppCompatActivity {
 
@@ -18,11 +21,11 @@ public class BackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_back);
+        setContentView(R.layout.activity_back1);
         Log.d(TAG, "onCreate");
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
+           }
+
+
     @Override
     protected void onDestroy(){
         super.onDestroy();

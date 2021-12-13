@@ -5,13 +5,25 @@ import static com.example.myapplication.DataBaseContract.*;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,6 +39,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -40,17 +54,39 @@ public class MainActivity extends AppCompatActivity {
     String login;
     private Menu menu;
     List<Item> list = new ArrayList<Item>();
-    boolean languageState = true;
+
     int MyPosition;
     CustomListAdapter adapter;
     private final static String TAG = "MainActivity";
     List<Item> image_details;
 
+    SensorManager sensorManager;
+    Sensor sensorLight;
+    boolean lightPar = true;
+    TextView tf2;
+    LocationManager locationManager;
+
+
+
+    SensorEventListener listenerLight = new SensorEventListener() {
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            String lightData = String.valueOf(event.values[0]);
+            tf2.setText("Уровень освещенности: " + lightData);
+        }
+    };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.my_menu, menu);
-
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorLight = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         if(menu.getClass().getSimpleName()
                 .equals("MenuBuilder")){
             try{
@@ -101,9 +137,22 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.item6:
-                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+              /*  Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(intent, 1);
+                }*/
+              /*  Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo: 53.18417,44.99972"));
+                startActivity(intent);*/
+                if (lightPar) {
+                    sensorManager.registerListener(listenerLight, sensorLight,
+                            SensorManager.SENSOR_DELAY_NORMAL);
+                    lightPar = false;
+                }
+                else {
+                    sensorManager.unregisterListener(listenerLight, sensorLight);
+                    lightPar = true;
                 }
                 break;
             default:
@@ -121,8 +170,10 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle arguments = getIntent().getExtras();
         login = arguments.get("login").toString();
-
         databaseHelper = new DataBase(getApplicationContext());
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        tf2 = (TextView) findViewById(R.id.lightView2);
 
        /* final List<Item>*/  image_details = getListData();
         ReadDataFromDataBase(image_details,login);
@@ -214,11 +265,17 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         LoginActivity.isShowAlert = false;
         Log.d(TAG, "onPause");
+        sensorManager.unregisterListener(listenerLight, sensorLight);
+        lightPar = true;
+
+
     }
+    @SuppressLint("MissingPermission")
     @Override
     protected void onResume(){
         super.onResume();
         Log.d(TAG, "onResume");
+
     }
 
     @Override
@@ -412,5 +469,6 @@ public class MainActivity extends AppCompatActivity {
         db.close();
         return count;
     }
+
 
 }
